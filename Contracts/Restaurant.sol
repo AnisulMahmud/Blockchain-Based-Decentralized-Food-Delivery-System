@@ -31,12 +31,7 @@ contract Restaurant {
         uint order_count;
     }
     
-    struct Customer {
-        uint id;
-        uint a_order;
-        uint b_order;
 
-    }
     
         struct Package {
         uint id;
