@@ -30,6 +30,15 @@ contract Customer {
 
     }
     
+        struct Package {
+        uint id;
+        uint current_order;
+        uint package_order;
+        uint loc_x;
+        uint loc_y;
+        uint order_count;
+    }
+    
     
     
         struct Order {
