@@ -21,7 +21,14 @@ contract Customer {
    
     
 
-
+    
+       struct Restaurant {
+        uint id;
+        uint[] menu;
+        uint loc_x;
+        uint loc_y;
+        uint order_count;
+    }
     
     struct Customer {
         uint id;
@@ -40,7 +47,6 @@ contract Customer {
     }
     
     
-    
         struct Order {
         uint id; 
         uint[] food_items;
@@ -51,6 +57,9 @@ contract Customer {
         OrderStatus status;
         uint time;
     }
+
+    
+
     
     
     mapping(address => uint) get_restaurant_id;
