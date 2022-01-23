@@ -11,7 +11,7 @@ contract DeliveryService {
     uint256 order_placing_time;
     uint256 order_delivery_time;
     uint256 order_deliveryboy_time;
-    uint256 order_rcv_time;
+    uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
@@ -169,7 +169,7 @@ contract DeliveryService {
     has_ordered()
     public returns (bool) {
 
-    order_rcv_time= block.timestamp;
+    order_receive_time= block.timestamp;
 
         uint order_id = customer_details[get_customer_id[msg.sender]].a_order;
         order_details[order_id].status = OrderStatus.delivered;
@@ -224,7 +224,8 @@ contract DeliveryService {
         require(get_restaurant_id[msg.sender] > 0, "This resturant is not registered");
         _;
     }
- 
+
+    
 
     function order_accept(uint order_id)
     is_restaurant
@@ -361,7 +362,7 @@ contract DeliveryService {
         require(package_details[package_id].current_order == order_id, "Not your order");
         require(order_details[order_id].status == OrderStatus.delivered, "Food not yet delivered");
 
-        if(order_rcv_time - order_deliveryboy_time >= 60){
+        if(order_receive_time - order_deliveryboy_time >= 60){
         emit warning("Late in food delivery, you will be deducted 5% from food delivery fees");
                       
         }
@@ -376,8 +377,3 @@ contract DeliveryService {
 
 }
 
-
-
-
-
-    
