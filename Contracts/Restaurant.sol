@@ -15,7 +15,7 @@ contract Restaurant {
     uint256 order_placing_time;
     uint256 order_delivery_time;
     uint256 order_deliveryboy_time;
-    uint256 order_rcv_time;
+    uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
