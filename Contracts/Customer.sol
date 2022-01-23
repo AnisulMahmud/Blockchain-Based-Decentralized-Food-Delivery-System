@@ -14,13 +14,15 @@ contract Customer {
     uint256 order_placing_time;
     uint256 order_delivery_time;
     uint256 order_deliveryboy_time;
-    uint256 order_rcv_time;
+    uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
    
     
 
+
+    
     struct Customer {
         uint id;
         uint a_order;
@@ -28,14 +30,6 @@ contract Customer {
 
     }
     
-        struct Package {
-        uint id;
-        uint current_order;
-        uint package_order;
-        uint loc_x;
-        uint loc_y;
-        uint order_count;
-    }
     
     
         struct Order {
@@ -163,7 +157,7 @@ contract Customer {
     has_ordered()
     public returns (bool) {
 
-    order_rcv_time= block.timestamp;
+    order_receive_time= block.timestamp;
 
         uint order_id = customer_details[get_customer_id[msg.sender]].a_order;
         order_details[order_id].status = OrderStatus.delivered;
