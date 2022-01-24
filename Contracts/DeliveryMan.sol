@@ -4,7 +4,7 @@ import './Restaurant.sol';
 import './Customer.sol';
 
 
-contract DeliveryBoy {
+contract DeliveryMan {
 
     uint package_count = 0;
     uint restaurant_count = 0;
@@ -14,8 +14,8 @@ contract DeliveryBoy {
     uint food_cost = 0;
     uint256 order_placing_time;
     uint256 order_delivery_time;
-    uint256 order_deliveryboy_time;
-    uint256 order_rcv_time;
+    uint256 order_deliveryman_time;
+    uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
@@ -56,7 +56,7 @@ contract DeliveryBoy {
         uint del;
         uint cust;
         OrderStatus status;
-        uint time;
+        
     }
     
     
@@ -191,7 +191,7 @@ contract DeliveryBoy {
         require(package_details[package_id].current_order == order_id, "Not your order");
         require(order_details[order_id].status == OrderStatus.delivered, "Food not yet delivered");
 
-        if(order_rcv_time - order_deliveryboy_time >= 60){
+        if(order_receive_time - order_deliveryman_time >= 60){
         emit warning("Late in food delivery, you will be deducted 5% from food delivery fees");
                       
         }
