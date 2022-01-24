@@ -10,7 +10,7 @@ contract DeliveryService {
     uint food_cost = 0;
     uint256 order_placing_time;
     uint256 order_delivery_time;
-    uint256 order_deliveryboy_time;
+    uint256 order_deliveryman_time;
     uint256 order_receive_time;
 
     
@@ -52,7 +52,7 @@ contract DeliveryService {
         uint del;
         uint cust;
         OrderStatus status;
-        uint time;
+       
     }
     
     
@@ -259,7 +259,7 @@ contract DeliveryService {
     function food_fee_collecting(uint order_id)
     is_restaurant()
     public returns (bool) {
-        order_deliveryboy_time = block.timestamp;
+        order_deliveryman_time = block.timestamp;
 
 
 
@@ -362,7 +362,7 @@ contract DeliveryService {
         require(package_details[package_id].current_order == order_id, "Not your order");
         require(order_details[order_id].status == OrderStatus.delivered, "Food not yet delivered");
 
-        if(order_receive_time - order_deliveryboy_time >= 60){
+        if(order_receive_time - order_deliveryman_time >= 60){
         emit warning("Late in food delivery, you will be deducted 5% from food delivery fees");
                       
         }
