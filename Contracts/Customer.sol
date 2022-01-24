@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 import './Restaurant.sol';
-import './DeliveryBoy.sol';
+import './DeliveryMan.sol';
 
 contract Customer {
 
@@ -13,13 +13,14 @@ contract Customer {
     uint food_cost = 0;
     uint256 order_placing_time;
     uint256 order_delivery_time;
-    uint256 order_deliveryboy_time;
+    uint256 order_deliveryman_time;
     uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
    
     
+
 
     
        struct Restaurant {
@@ -55,11 +56,8 @@ contract Customer {
         uint del;
         uint cust;
         OrderStatus status;
-        uint time;
+        
     }
-
-    
-
     
     
     mapping(address => uint) get_restaurant_id;
