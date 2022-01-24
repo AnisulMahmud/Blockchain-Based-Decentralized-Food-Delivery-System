@@ -1,7 +1,7 @@
 pragma solidity ^0.4.24;
 
 import './Customer.sol';
-import './DeliveryBoy.sol';
+import './DeliveryMan.sol';
 
 
 contract Restaurant {
@@ -14,14 +14,13 @@ contract Restaurant {
     uint food_cost = 0;
     uint256 order_placing_time;
     uint256 order_delivery_time;
-    uint256 order_deliveryboy_time;
+    uint256 order_deliveryman_time;
     uint256 order_receive_time;
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
    
     
-
 
     
        struct Restaurant {
@@ -184,7 +183,7 @@ contract Restaurant {
     function food_fee_collecting(uint order_id)
     is_restaurant()
     public returns (bool) {
-        order_deliveryboy_time = block.timestamp;
+        order_deliveryman_time = block.timestamp;
 
 
 
