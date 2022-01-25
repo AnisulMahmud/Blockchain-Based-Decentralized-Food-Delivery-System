@@ -155,8 +155,7 @@ contract DeliveryMan {
     
     function collect_food(uint order_id)
     is_package()
-    public returns (bool) {
-    //order_deliverboy_time= block.timestamp;     
+    public returns (bool) {   
     order_delivery_time = block.timestamp;
 
 
