@@ -12,6 +12,7 @@ contract DeliveryService {
     uint256 order_delivery_time;
     uint256 order_deliveryman_time;
     uint256 order_receive_time;
+ 
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
@@ -21,7 +22,7 @@ contract DeliveryService {
     
        struct Restaurant {
         uint id;
-        uint[] menu;
+        uint [] menu;
         uint loc_x;
         uint loc_y;
         uint order_count;
@@ -67,6 +68,9 @@ contract DeliveryService {
     mapping(uint => Order) order_details;
 
     event order_update(uint order_id, OrderStatus status);
+
+    event event1(string msg);
+    event event2(string msg);
     
 
 
@@ -235,6 +239,7 @@ contract DeliveryService {
         require(order_details[order_id].status == OrderStatus.ordered, "Already accepted this order");
     
         emit order_update(order_id, OrderStatus.accepted);
+        emit event1("Your order has been placed");
         order_details[order_id].status = OrderStatus.accepted;
         
         return true;
@@ -267,7 +272,7 @@ contract DeliveryService {
         require(order_details[order_id].rest == restaurant_id, "This is not your order ");
         require(order_details[order_id].status == OrderStatus.picked, "Package has not delivered yet");
            
-        if(order_delivery_time - order_placing_time >= 60){
+        if(order_delivery_time - order_placing_time > 60){
         emit warning("Late in food making, you will be deducted 10% from food fees");
                       
         }
@@ -326,7 +331,8 @@ contract DeliveryService {
     
     function collect_food(uint order_id)
     is_package()
-    public returns (bool) {    
+    public returns (bool) {
+  
     order_delivery_time = block.timestamp;
 
 
@@ -336,6 +342,7 @@ contract DeliveryService {
         require(order_details[order_id].status == OrderStatus.prepared, "Food not yet made");
     
         emit order_update(order_id, OrderStatus.picked);
+        emit event2("Your package has been received by the deliveryman");
         order_details[order_id].status = OrderStatus.picked;
 
         return true;
@@ -361,7 +368,7 @@ contract DeliveryService {
         require(package_details[package_id].current_order == order_id, "Not your order");
         require(order_details[order_id].status == OrderStatus.delivered, "Food not yet delivered");
 
-        if(order_receive_time - order_deliveryman_time >= 60){
+        if(order_receive_time - order_deliveryman_time > 60){
         emit warning("Late in food delivery, you will be deducted 5% from food delivery fees");
                       
         }
