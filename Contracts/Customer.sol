@@ -1,5 +1,8 @@
 pragma solidity ^0.4.24;
 
+import './Restaurant.sol';
+import './DeliveryMan.sol';
+
 contract DeliveryService {
 
     uint package_count = 0;
