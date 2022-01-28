@@ -1,9 +1,6 @@
 pragma solidity ^0.4.24;
 
-import './Restaurant.sol';
-import './DeliveryMan.sol';
-
-contract Customer {
+contract DeliveryService {
 
     uint package_count = 0;
     uint restaurant_count = 0;
@@ -15,17 +12,17 @@ contract Customer {
     uint256 order_delivery_time;
     uint256 order_deliveryman_time;
     uint256 order_receive_time;
+ 
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
    
     
 
-
     
        struct Restaurant {
         uint id;
-        uint[] menu;
+        uint [] menu;
         uint loc_x;
         uint loc_y;
         uint order_count;
@@ -56,7 +53,7 @@ contract Customer {
         uint del;
         uint cust;
         OrderStatus status;
-        
+       
     }
     
     
@@ -71,6 +68,10 @@ contract Customer {
     mapping(uint => Order) order_details;
 
     event order_update(uint order_id, OrderStatus status);
+
+    event event1(string msg);
+    event event2(string msg);
+    event event3(string msg);
     
 
 
@@ -179,6 +180,7 @@ contract Customer {
         order_details[order_id].status = OrderStatus.delivered;
         customer_details[get_customer_id[msg.sender]].a_order = 0;
         customer_details[get_customer_id[msg.sender]].b_order = order_id;
+        emit event3("Order received by the customer");
         emit order_update(order_id, OrderStatus.delivered);
         
         return true;
