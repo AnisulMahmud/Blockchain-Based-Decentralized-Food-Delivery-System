@@ -16,6 +16,7 @@ contract Restaurant {
     uint256 order_delivery_time;
     uint256 order_deliveryman_time;
     uint256 order_receive_time;
+ 
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
@@ -25,7 +26,7 @@ contract Restaurant {
     
        struct Restaurant {
         uint id;
-        uint[] menu;
+        uint [] menu;
         uint loc_x;
         uint loc_y;
         uint order_count;
@@ -56,7 +57,7 @@ contract Restaurant {
         uint del;
         uint cust;
         OrderStatus status;
-        uint time;
+       
     }
     
     
@@ -71,11 +72,16 @@ contract Restaurant {
     mapping(uint => Order) order_details;
 
     event order_update(uint order_id, OrderStatus status);
+
+    event event1(string msg);
+    event event2(string msg);
+    event event3(string msg);
     
 
 
 
     event warning(string msg);
+
 
     
         function get_id()
@@ -148,7 +154,6 @@ contract Restaurant {
         _;
     }
 
-
     
 
     function order_accept(uint order_id)
@@ -159,6 +164,7 @@ contract Restaurant {
         require(order_details[order_id].status == OrderStatus.ordered, "Already accepted this order");
     
         emit order_update(order_id, OrderStatus.accepted);
+        emit event1("Your order has been placed");
         order_details[order_id].status = OrderStatus.accepted;
         
         return true;
@@ -191,7 +197,7 @@ contract Restaurant {
         require(order_details[order_id].rest == restaurant_id, "This is not your order ");
         require(order_details[order_id].status == OrderStatus.picked, "Package has not delivered yet");
            
-        if(order_delivery_time - order_placing_time >= 60){
+        if(order_delivery_time - order_placing_time > 60){
         emit warning("Late in food making, you will be deducted 10% from food fees");
                       
         }
@@ -206,6 +212,7 @@ contract Restaurant {
     
 
 // Resutrant end     
+
 
 
 }
