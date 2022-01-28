@@ -16,6 +16,7 @@ contract DeliveryMan {
     uint256 order_delivery_time;
     uint256 order_deliveryman_time;
     uint256 order_receive_time;
+ 
 
     
     enum OrderStatus {ordered, accepted, package_found, prepared, picked, delivered}
@@ -25,7 +26,7 @@ contract DeliveryMan {
     
        struct Restaurant {
         uint id;
-        uint[] menu;
+        uint [] menu;
         uint loc_x;
         uint loc_y;
         uint order_count;
@@ -56,7 +57,7 @@ contract DeliveryMan {
         uint del;
         uint cust;
         OrderStatus status;
-        
+       
     }
     
     
@@ -71,6 +72,10 @@ contract DeliveryMan {
     mapping(uint => Order) order_details;
 
     event order_update(uint order_id, OrderStatus status);
+
+    event event1(string msg);
+    event event2(string msg);
+    event event3(string msg);
     
 
 
@@ -112,7 +117,7 @@ contract DeliveryMan {
     }
     
 
-// For delivery food package
+// / For delivery food package
 
     function package_registration() 
     public returns(bool) {
@@ -155,7 +160,8 @@ contract DeliveryMan {
     
     function collect_food(uint order_id)
     is_package()
-    public returns (bool) {   
+    public returns (bool) {
+  
     order_delivery_time = block.timestamp;
 
 
@@ -165,6 +171,7 @@ contract DeliveryMan {
         require(order_details[order_id].status == OrderStatus.prepared, "Food not yet made");
     
         emit order_update(order_id, OrderStatus.picked);
+        emit event2("Your package has been received by the deliveryman");
         order_details[order_id].status = OrderStatus.picked;
 
         return true;
@@ -190,7 +197,7 @@ contract DeliveryMan {
         require(package_details[package_id].current_order == order_id, "Not your order");
         require(order_details[order_id].status == OrderStatus.delivered, "Food not yet delivered");
 
-        if(order_receive_time - order_deliveryman_time >= 60){
+        if(order_receive_time - order_deliveryman_time > 60){
         emit warning("Late in food delivery, you will be deducted 5% from food delivery fees");
                       
         }
